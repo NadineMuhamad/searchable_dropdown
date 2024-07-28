@@ -557,11 +557,18 @@ class _DropDownText<T> extends StatelessWidget {
       previousValue != null
           ? Text(previousValue!)
           : (selectedItem?.label != null
-          ? Text(
+          ? Column(children:[
+            Text(
+       hintText,
+        maxLines: 1,
+        overflow: TextOverflow.fade,
+      )
+            Text(
         selectedItem!.label,
         maxLines: 1,
         overflow: TextOverflow.fade,
       )
+          ])
           : hintText) ??
           const SizedBox.shrink(),
     );
