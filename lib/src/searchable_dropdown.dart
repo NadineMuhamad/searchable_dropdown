@@ -1,12 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:tamawal/core/presentation/widget/lib/src/extensions/context_extension.dart';
-import 'package:tamawal/core/presentation/widget/lib/src/extensions/custom_global_key_extension.dart';
-import 'package:tamawal/core/presentation/widget/lib/src/utils/custom_inkwell.dart';
-import 'package:tamawal/core/presentation/widget/lib/src/utils/custom_search_bar.dart';
+import 'package:searchable_paginated_dropdown/src/extensions/extensions.dart';
+import 'package:searchable_paginated_dropdown/src/model/searchable_dropdown_menu_item.dart';
+import 'package:searchable_paginated_dropdown/src/searchable_dropdown_controller.dart';
+import 'package:searchable_paginated_dropdown/src/utils/custom_inkwell.dart';
+import 'package:searchable_paginated_dropdown/src/utils/custom_search_bar.dart';
 
-import '../searchable_paginated_dropdown.dart';
+
 
 class SearchableDropdown<T> extends StatefulWidget {
   const SearchableDropdown({
