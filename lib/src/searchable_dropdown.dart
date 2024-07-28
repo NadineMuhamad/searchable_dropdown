@@ -26,12 +26,12 @@ class SearchableDropdown<T> extends StatefulWidget {
     T? value,
     bool isEnabled = true,
     VoidCallback? disabledOnTap,
-    VoidCallback? onDismissDropdown,
-    VoidCallback? onShowDropdown,
     double? width,
     bool isDialogExpanded = true,
     bool hasTrailingClearIcon = true,
     double? dialogOffset,
+    String? previousText,
+
   }) : this._(
           key: key,
           hintText: hintText,
@@ -49,12 +49,11 @@ class SearchableDropdown<T> extends StatefulWidget {
           initialValue: value,
           isEnabled: isEnabled,
           disabledOnTap: disabledOnTap,
-          onDismissDropdown: onDismissDropdown,
-          onShowDropdown: onShowDropdown,
           width: width,
           isDialogExpanded: isDialogExpanded,
           hasTrailingClearIcon: hasTrailingClearIcon,
           dialogOffset: dialogOffset,
+    previousText: previousText
         );
 
   const SearchableDropdown.paginated({
@@ -78,14 +77,14 @@ class SearchableDropdown<T> extends StatefulWidget {
     void Function(T?)? onChanged,
     bool isEnabled = true,
     VoidCallback? disabledOnTap,
-    VoidCallback? onDismissDropdown,
-    VoidCallback? onShowDropdown,
     Duration? changeCompletionDelay,
     double? width,
     bool isDialogExpanded = true,
     bool hasTrailingClearIcon = true,
     SearchableDropdownMenuItem<T>? initialValue,
     double? dialogOffset,
+    String? previousText,
+
   }) : this._(
           key: key,
           controller: controller,
@@ -103,14 +102,13 @@ class SearchableDropdown<T> extends StatefulWidget {
           onChanged: onChanged,
           isEnabled: isEnabled,
           disabledOnTap: disabledOnTap,
-          onDismissDropdown: onDismissDropdown,
-          onShowDropdown: onShowDropdown,
           changeCompletionDelay: changeCompletionDelay,
           width: width,
           isDialogExpanded: isDialogExpanded,
           hasTrailingClearIcon: hasTrailingClearIcon,
           initialFutureValue: initialValue,
           dialogOffset: dialogOffset,
+    previousText: previousText,
         );
 
   const SearchableDropdown.future({
@@ -130,14 +128,14 @@ class SearchableDropdown<T> extends StatefulWidget {
     void Function(T?)? onChanged,
     bool isEnabled = true,
     VoidCallback? disabledOnTap,
-    VoidCallback? onDismissDropdown,
-    VoidCallback? onShowDropdown,
     Duration? changeCompletionDelay,
     double? width,
     bool isDialogExpanded = true,
     bool hasTrailingClearIcon = true,
     SearchableDropdownMenuItem<T>? initialValue,
     double? dialogOffset,
+    String? previousText,
+
   }) : this._(
           futureRequest: futureRequest,
           key: key,
@@ -154,14 +152,13 @@ class SearchableDropdown<T> extends StatefulWidget {
           onChanged: onChanged,
           isEnabled: isEnabled,
           disabledOnTap: disabledOnTap,
-          onDismissDropdown: onDismissDropdown,
-          onShowDropdown: onShowDropdown,
           changeCompletionDelay: changeCompletionDelay,
           width: width,
           isDialogExpanded: isDialogExpanded,
           hasTrailingClearIcon: hasTrailingClearIcon,
           initialFutureValue: initialValue,
           dialogOffset: dialogOffset,
+    previousText: previousText
         );
 
   const SearchableDropdown._({
@@ -182,8 +179,6 @@ class SearchableDropdown<T> extends StatefulWidget {
     this.initialFutureValue,
     this.isEnabled = true,
     this.disabledOnTap,
-    this.onDismissDropdown,
-    this.onShowDropdown,
     this.futureRequest,
     this.paginatedRequest,
     this.requestItemCount,
@@ -192,6 +187,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     this.isDialogExpanded = true,
     this.hasTrailingClearIcon = true,
     this.dialogOffset,
+    this.previousText,
   });
 
   //Is dropdown enabled
@@ -245,12 +241,6 @@ class SearchableDropdown<T> extends StatefulWidget {
   //Triggers this function if dropdown pressed while disabled
   final VoidCallback? disabledOnTap;
 
-  //Triggers this function on dropdown dismissed
-  final VoidCallback? onDismissDropdown;
-
-  //Triggers this function on dropdown open
-  final VoidCallback? onShowDropdown;
-
   /// Returns selected Item.
   final void Function(T? value)? onChanged;
 
@@ -271,6 +261,8 @@ class SearchableDropdown<T> extends StatefulWidget {
 
   /// Background decoration of dropdown, i.e. with this you can wrap dropdown with Card.
   final Widget Function(Widget child)? backgroundDecoration;
+  final String? previousText;
+
 
   @override
   State<SearchableDropdown<T>> createState() => _SearchableDropdownState<T>();
@@ -316,8 +308,6 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
       controller: dropdownController,
       isEnabled: widget.isEnabled,
       disabledOnTap: widget.disabledOnTap,
-      onDismissDropdown: widget.onDismissDropdown,
-      onShowDropdown: widget.onShowDropdown,
       dropDownMaxHeight: widget.dropDownMaxHeight,
       futureRequest: widget.futureRequest,
       hintText: widget.hintText,
@@ -333,6 +323,8 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
       isDialogExpanded: widget.isDialogExpanded,
       hasTrailingClearIcon: widget.hasTrailingClearIcon,
       dialogOffset: widget.dialogOffset ?? 35,
+      previousText: widget.previousText,
+
     );
 
     return SizedBox(
@@ -354,8 +346,6 @@ class _DropDown<T> extends StatelessWidget {
     this.trailingIcon,
     this.trailingClearIcon,
     this.disabledOnTap,
-    this.onDismissDropdown,
-    this.onShowDropdown,
     this.margin,
     this.hintText,
     this.dropDownMaxHeight,
@@ -366,6 +356,8 @@ class _DropDown<T> extends StatelessWidget {
     this.searchHintText,
     this.changeCompletionDelay,
     this.hasTrailingClearIcon = true,
+     this.previousText,
+
   });
 
   final bool isEnabled;
@@ -383,14 +375,14 @@ class _DropDown<T> extends StatelessWidget {
   final SearchableDropdownController<T> controller;
   final String? searchHintText;
   final VoidCallback? disabledOnTap;
-  final VoidCallback? onDismissDropdown;
-  final VoidCallback? onShowDropdown;
   final void Function(T? value)? onChanged;
   final Widget? trailingIcon;
   final Widget? trailingClearIcon;
   final Widget? leadingIcon;
   final Widget? hintText;
   final Widget? noRecordText;
+  final String? previousText;
+
 
   @override
   Widget build(BuildContext context) {
@@ -398,8 +390,11 @@ class _DropDown<T> extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       onTap: () {
         if (isEnabled) {
+          print("----IS ENANLED");
           showDropdownDialog(context, controller, dialogOffset: dialogOffset);
         } else {
+          print("----IS Disabled");
+
           disabledOnTap?.call();
         }
       },
@@ -419,6 +414,8 @@ class _DropDown<T> extends StatelessWidget {
                     child: _DropDownText(
                       controller: controller,
                       hintText: hintText,
+                      previousValue: previousText,
+
                     ),
                   ),
                 ],
@@ -460,6 +457,8 @@ class _DropDown<T> extends StatelessWidget {
     /// Dialog offset from dropdown.
     required double dialogOffset,
   }) {
+    print("--------------------------------------------------######");
+
     var isReversed = false;
     final deviceHeight = context.deviceHeight;
     final dropdownGlobalPointBounds = controller.key.globalPaintBounds;
@@ -490,8 +489,6 @@ class _DropDown<T> extends StatelessWidget {
     } else {
       controller.searchedItems.value = controller.items;
     }
-    //Call needs to be outside showDialog in case it has setState
-    onShowDropdown?.call();
     //Show the dialog
     showDialog<void>(
       context: context,
@@ -535,7 +532,7 @@ class _DropDown<T> extends StatelessWidget {
         );
       },
       barrierColor: Colors.transparent,
-    ).then(((_) => onDismissDropdown?.call()));
+    );
   }
 }
 
@@ -543,24 +540,29 @@ class _DropDownText<T> extends StatelessWidget {
   const _DropDownText({
     required this.controller,
     this.hintText,
+    this.previousValue,
+
   });
 
   final SearchableDropdownController<T> controller;
   final Widget? hintText;
+  final String? previousValue;
+
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: controller.selectedItem,
       builder: (context, SearchableDropdownMenuItem<T>? selectedItem, child) =>
-          selectedItem?.child ??
-          (selectedItem?.label != null
-              ? Text(
-                  selectedItem!.label,
-                  maxLines: 1,
-                  overflow: TextOverflow.fade,
-                )
-              : hintText) ??
+      previousValue != null
+          ? Text(previousValue!)
+          : (selectedItem?.label != null
+          ? Text(
+        selectedItem!.label,
+        maxLines: 1,
+        overflow: TextOverflow.fade,
+      )
+          : hintText) ??
           const SizedBox.shrink(),
     );
   }
