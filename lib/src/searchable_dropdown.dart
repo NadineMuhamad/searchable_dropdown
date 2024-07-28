@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:tamawal/core/presentation/widget/lib/src/extensions/context_extension.dart';
+import 'package:tamawal/core/presentation/widget/lib/src/extensions/custom_global_key_extension.dart';
+import 'package:tamawal/core/presentation/widget/lib/src/utils/custom_inkwell.dart';
+import 'package:tamawal/core/presentation/widget/lib/src/utils/custom_search_bar.dart';
 
-import 'package:searchable_paginated_dropdown/src/extensions/extensions.dart';
-import 'package:searchable_paginated_dropdown/src/model/searchable_dropdown_menu_item.dart';
-import 'package:searchable_paginated_dropdown/src/searchable_dropdown_controller.dart';
-import 'package:searchable_paginated_dropdown/src/utils/custom_inkwell.dart';
-import 'package:searchable_paginated_dropdown/src/utils/custom_search_bar.dart';
+import '../searchable_paginated_dropdown.dart';
 
 class SearchableDropdown<T> extends StatefulWidget {
   const SearchableDropdown({
@@ -31,37 +31,34 @@ class SearchableDropdown<T> extends StatefulWidget {
     bool hasTrailingClearIcon = true,
     double? dialogOffset,
     String? previousText,
-
   }) : this._(
-          key: key,
-          hintText: hintText,
-          controller: controller,
-          backgroundDecoration: backgroundDecoration,
-          searchHintText: searchHintText,
-          noRecordText: noRecordText,
-          dropDownMaxHeight: dropDownMaxHeight,
-          margin: margin,
-          trailingIcon: trailingIcon,
-          trailingClearIcon: trailingClearIcon,
-          leadingIcon: leadingIcon,
-          onChanged: onChanged,
-          items: items,
-          initialValue: value,
-          isEnabled: isEnabled,
-          disabledOnTap: disabledOnTap,
-          width: width,
-          isDialogExpanded: isDialogExpanded,
-          hasTrailingClearIcon: hasTrailingClearIcon,
-          dialogOffset: dialogOffset,
-    previousText: previousText
-        );
+            key: key,
+            hintText: hintText,
+            controller: controller,
+            backgroundDecoration: backgroundDecoration,
+            searchHintText: searchHintText,
+            noRecordText: noRecordText,
+            dropDownMaxHeight: dropDownMaxHeight,
+            margin: margin,
+            trailingIcon: trailingIcon,
+            trailingClearIcon: trailingClearIcon,
+            leadingIcon: leadingIcon,
+            onChanged: onChanged,
+            items: items,
+            initialValue: value,
+            isEnabled: isEnabled,
+            disabledOnTap: disabledOnTap,
+            width: width,
+            isDialogExpanded: isDialogExpanded,
+            hasTrailingClearIcon: hasTrailingClearIcon,
+            dialogOffset: dialogOffset,
+            previousText: previousText);
 
   const SearchableDropdown.paginated({
     required Future<List<SearchableDropdownMenuItem<T>>?> Function(
       int,
       String?,
-    )?
-        paginatedRequest,
+    )? paginatedRequest,
     int? requestItemCount,
     Key? key,
     SearchableDropdownController<T>? controller,
@@ -84,7 +81,6 @@ class SearchableDropdown<T> extends StatefulWidget {
     SearchableDropdownMenuItem<T>? initialValue,
     double? dialogOffset,
     String? previousText,
-
   }) : this._(
           key: key,
           controller: controller,
@@ -108,7 +104,7 @@ class SearchableDropdown<T> extends StatefulWidget {
           hasTrailingClearIcon: hasTrailingClearIcon,
           initialFutureValue: initialValue,
           dialogOffset: dialogOffset,
-    previousText: previousText,
+          previousText: previousText,
         );
 
   const SearchableDropdown.future({
@@ -135,31 +131,29 @@ class SearchableDropdown<T> extends StatefulWidget {
     SearchableDropdownMenuItem<T>? initialValue,
     double? dialogOffset,
     String? previousText,
-
   }) : this._(
-          futureRequest: futureRequest,
-          key: key,
-          controller: controller,
-          hintText: hintText,
-          backgroundDecoration: backgroundDecoration,
-          searchHintText: searchHintText,
-          noRecordText: noRecordText,
-          dropDownMaxHeight: dropDownMaxHeight,
-          margin: margin,
-          trailingIcon: trailingIcon,
-          trailingClearIcon: trailingClearIcon,
-          leadingIcon: leadingIcon,
-          onChanged: onChanged,
-          isEnabled: isEnabled,
-          disabledOnTap: disabledOnTap,
-          changeCompletionDelay: changeCompletionDelay,
-          width: width,
-          isDialogExpanded: isDialogExpanded,
-          hasTrailingClearIcon: hasTrailingClearIcon,
-          initialFutureValue: initialValue,
-          dialogOffset: dialogOffset,
-    previousText: previousText
-        );
+            futureRequest: futureRequest,
+            key: key,
+            controller: controller,
+            hintText: hintText,
+            backgroundDecoration: backgroundDecoration,
+            searchHintText: searchHintText,
+            noRecordText: noRecordText,
+            dropDownMaxHeight: dropDownMaxHeight,
+            margin: margin,
+            trailingIcon: trailingIcon,
+            trailingClearIcon: trailingClearIcon,
+            leadingIcon: leadingIcon,
+            onChanged: onChanged,
+            isEnabled: isEnabled,
+            disabledOnTap: disabledOnTap,
+            changeCompletionDelay: changeCompletionDelay,
+            width: width,
+            isDialogExpanded: isDialogExpanded,
+            hasTrailingClearIcon: hasTrailingClearIcon,
+            initialFutureValue: initialValue,
+            dialogOffset: dialogOffset,
+            previousText: previousText);
 
   const SearchableDropdown._({
     super.key,
@@ -263,7 +257,6 @@ class SearchableDropdown<T> extends StatefulWidget {
   final Widget Function(Widget child)? backgroundDecoration;
   final String? previousText;
 
-
   @override
   State<SearchableDropdown<T>> createState() => _SearchableDropdownState<T>();
 }
@@ -324,7 +317,6 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
       hasTrailingClearIcon: widget.hasTrailingClearIcon,
       dialogOffset: widget.dialogOffset ?? 35,
       previousText: widget.previousText,
-
     );
 
     return SizedBox(
@@ -356,8 +348,7 @@ class _DropDown<T> extends StatelessWidget {
     this.searchHintText,
     this.changeCompletionDelay,
     this.hasTrailingClearIcon = true,
-     this.previousText,
-
+    this.previousText,
   });
 
   final bool isEnabled;
@@ -383,18 +374,14 @@ class _DropDown<T> extends StatelessWidget {
   final Widget? noRecordText;
   final String? previousText;
 
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
         if (isEnabled) {
-          print("----IS ENANLED");
           showDropdownDialog(context, controller, dialogOffset: dialogOffset);
         } else {
-          print("----IS Disabled");
-
           disabledOnTap?.call();
         }
       },
@@ -415,7 +402,6 @@ class _DropDown<T> extends StatelessWidget {
                       controller: controller,
                       hintText: hintText,
                       previousValue: previousText,
-
                     ),
                   ),
                 ],
@@ -541,29 +527,42 @@ class _DropDownText<T> extends StatelessWidget {
     required this.controller,
     this.hintText,
     this.previousValue,
-
   });
 
   final SearchableDropdownController<T> controller;
   final Widget? hintText;
   final String? previousValue;
 
-
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: controller.selectedItem,
       builder: (context, SearchableDropdownMenuItem<T>? selectedItem, child) =>
-      previousValue != null
-          ? Text(previousValue!)
-          : (selectedItem?.label != null
-          ? Text(
-        selectedItem!.label,
-        maxLines: 1,
-        overflow: TextOverflow.fade,
-      )
-          : hintText) ??
-          const SizedBox.shrink(),
+          previousValue != null
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    hintText ?? const SizedBox.shrink(),
+                    SizedBox(height: 4),
+                    Text(
+                      previousValue!,
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ],
+                )
+              : (selectedItem?.label != null
+                      ? Column(
+                          children: [
+                            hintText ?? const SizedBox.shrink(),
+                            SizedBox(height: 4),
+                            Text(
+                              selectedItem!.label,
+                              style: TextStyle(color: Colors.black),
+                            )
+                          ],
+                        )
+                      : hintText) ??
+                  const SizedBox.shrink(),
     );
   }
 }
@@ -806,10 +805,13 @@ class _DropDownListViewState<T> extends State<_DropDownListView<T>> {
     if (maxScroll - currentScroll <= sensitivity) {
       if (searchText.isNotEmpty) {
         dropdownController.getItemsWithPaginatedRequest(
-            page: dropdownController.page, key: searchText,);
+          page: dropdownController.page,
+          key: searchText,
+        );
       } else {
         dropdownController.getItemsWithPaginatedRequest(
-            page: dropdownController.page,);
+          page: dropdownController.page,
+        );
       }
     }
   }
