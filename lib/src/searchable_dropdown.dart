@@ -555,27 +555,13 @@ class _DropDownText<T> extends StatelessWidget {
       valueListenable: controller.selectedItem,
       builder: (context, SearchableDropdownMenuItem<T>? selectedItem, child) =>
       previousValue != null
-          ? Column(children:[
-            Text(
-       hintText,
-        maxLines: 1,
-        overflow: TextOverflow.fade,
-      )
-          Text(previousValue!)
-          ]) 
+          ? Text(previousValue!)
           : (selectedItem?.label != null
-          ? Column(children:[
-            Text(
-       hintText,
-        maxLines: 1,
-        overflow: TextOverflow.fade,
-      )
-            Text(
+          ? Text(
         selectedItem!.label,
         maxLines: 1,
         overflow: TextOverflow.fade,
       )
-          ])
           : hintText) ??
           const SizedBox.shrink(),
     );
