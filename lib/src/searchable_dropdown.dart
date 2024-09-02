@@ -699,15 +699,15 @@ class _DropDownListViewState<T> extends State<_DropDownListView<T>> {
   @override
   void initState() {
     super.initState();
-    scrollController.addListener(scrollControllerListener);
+    // scrollController.addListener(scrollControllerListener);
   }
 
   @override
   void dispose() {
     super.dispose();
-    scrollController
-      ..removeListener(scrollControllerListener)
-      ..dispose();
+    // scrollController
+    //   ..removeListener(scrollControllerListener)
+    //   ..dispose();
   }
 
   @override
@@ -731,16 +731,48 @@ class _DropDownListViewState<T> extends State<_DropDownListView<T>> {
                   : Scrollbar(
                       thumbVisibility: true,
                       controller: scrollController,
-                      child: NotificationListener(
+                      child: NotificationListener<ScrollNotification>(
+                        onNotification: (ScrollNotification notification) {
+                          if (notification is ScrollUpdateNotification) {
+                            double currentPosition = notification.metrics.pixels;
+                            double maxScroll = notification.metrics.maxScrollExtent;
+                            double minScroll = notification.metrics.minScrollExtent;
+
+                            final dropdownController = widget.dropdownController;
+                            final searchText = dropdownController.searchText;
+
+
+                            if (notification.metrics.atEdge) {
+                              if (currentPosition == maxScroll) {
+                                  if (searchText.isNotEmpty) {
+                                    dropdownController.getItemsWithPaginatedRequest(
+                                      page: dropdownController.page,
+                                      key: searchText,
+                                    );
+                                  } else {
+                                    dropdownController.getItemsWithPaginatedRequest(
+                                      page: dropdownController.page,
+                                    );
+                                  }
+                              } else if (currentPosition == minScroll) {
+                              }
+                            }
+
+
+                          }
+                          return false; // Return false to allow the notification to continue to be dispatched.
+                        },
                         child: ListView.builder(
                           controller: scrollController,
                           padding:
                               listViewPadding(isReversed: widget.isReversed),
-                          itemCount: itemList.length + 1,
+                          itemCount: itemList.length +1,
                           shrinkWrap: true,
                           reverse: widget.isReversed,
                           itemBuilder: (context, index) {
+
                             if (index < itemList.length) {
+
                               final item = itemList.elementAt(index);
                               return CustomInkwell(
                                 child: item.child,
@@ -753,6 +785,7 @@ class _DropDownListViewState<T> extends State<_DropDownListView<T>> {
                                 },
                               );
                             } else {
+
                               return ValueListenableBuilder(
                                 valueListenable:
                                     widget.dropdownController.status,
@@ -780,7 +813,7 @@ class _DropDownListViewState<T> extends State<_DropDownListView<T>> {
 
   EdgeInsets listViewPadding({required bool isReversed}) {
     final itemHeight = widget.paginatedRequest != null
-        ? 48.0
+        ? 40.0
         : 0.0; // Offset to show progress indicator; Only needed on paginated dropdown
     return EdgeInsets.only(
       left: 8,
@@ -803,6 +836,7 @@ class _DropDownListViewState<T> extends State<_DropDownListView<T>> {
     final currentScroll = position.pixels;
     final dropdownController = widget.dropdownController;
     final searchText = dropdownController.searchText;
+  
     if (maxScroll - currentScroll <= sensitivity) {
       if (searchText.isNotEmpty) {
         dropdownController.getItemsWithPaginatedRequest(
