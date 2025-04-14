@@ -394,6 +394,7 @@ class _DropDown<T> extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       onTap: () {
         if (isEnabled) {
+          onDismiss?.call();
           showDropdownDialog(context, controller, dialogOffset: dialogOffset);
         } else {
           disabledOnTap?.call();
