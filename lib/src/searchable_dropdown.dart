@@ -32,34 +32,36 @@ class SearchableDropdown<T> extends StatefulWidget {
     bool hasTrailingClearIcon = true,
     double? dialogOffset,
     String? previousText,
+    VoidCallback? onDismiss,
   }) : this._(
-            key: key,
-            hintText: hintText,
-            controller: controller,
-            backgroundDecoration: backgroundDecoration,
-            searchHintText: searchHintText,
-            noRecordText: noRecordText,
-            dropDownMaxHeight: dropDownMaxHeight,
-            margin: margin,
-            trailingIcon: trailingIcon,
-            trailingClearIcon: trailingClearIcon,
-            leadingIcon: leadingIcon,
-            onChanged: onChanged,
-            items: items,
-            initialValue: value,
-            isEnabled: isEnabled,
-            disabledOnTap: disabledOnTap,
-            width: width,
-            isDialogExpanded: isDialogExpanded,
-            hasTrailingClearIcon: hasTrailingClearIcon,
-            dialogOffset: dialogOffset,
-            previousText: previousText);
+      key: key,
+      hintText: hintText,
+      controller: controller,
+      backgroundDecoration: backgroundDecoration,
+      searchHintText: searchHintText,
+      noRecordText: noRecordText,
+      dropDownMaxHeight: dropDownMaxHeight,
+      margin: margin,
+      trailingIcon: trailingIcon,
+      trailingClearIcon: trailingClearIcon,
+      leadingIcon: leadingIcon,
+      onChanged: onChanged,
+      items: items,
+      initialValue: value,
+      isEnabled: isEnabled,
+      disabledOnTap: disabledOnTap,
+      width: width,
+      isDialogExpanded: isDialogExpanded,
+      hasTrailingClearIcon: hasTrailingClearIcon,
+      dialogOffset: dialogOffset,
+      onDismiss: onDismiss,
+      previousText: previousText);
 
   const SearchableDropdown.paginated({
     required Future<List<SearchableDropdownMenuItem<T>>?> Function(
-      int,
-      String?,
-    )? paginatedRequest,
+        int,
+        String?,
+        )? paginatedRequest,
     int? requestItemCount,
     Key? key,
     SearchableDropdownController<T>? controller,
@@ -82,35 +84,38 @@ class SearchableDropdown<T> extends StatefulWidget {
     SearchableDropdownMenuItem<T>? initialValue,
     double? dialogOffset,
     String? previousText,
+    VoidCallback? onDismiss,
+
   }) : this._(
-          key: key,
-          controller: controller,
-          paginatedRequest: paginatedRequest,
-          requestItemCount: requestItemCount,
-          hintText: hintText,
-          backgroundDecoration: backgroundDecoration,
-          searchHintText: searchHintText,
-          noRecordText: noRecordText,
-          dropDownMaxHeight: dropDownMaxHeight,
-          margin: margin,
-          trailingIcon: trailingIcon,
-          trailingClearIcon: trailingClearIcon,
-          leadingIcon: leadingIcon,
-          onChanged: onChanged,
-          isEnabled: isEnabled,
-          disabledOnTap: disabledOnTap,
-          changeCompletionDelay: changeCompletionDelay,
-          width: width,
-          isDialogExpanded: isDialogExpanded,
-          hasTrailingClearIcon: hasTrailingClearIcon,
-          initialFutureValue: initialValue,
-          dialogOffset: dialogOffset,
-          previousText: previousText,
-        );
+    key: key,
+    controller: controller,
+    paginatedRequest: paginatedRequest,
+    requestItemCount: requestItemCount,
+    hintText: hintText,
+    backgroundDecoration: backgroundDecoration,
+    searchHintText: searchHintText,
+    noRecordText: noRecordText,
+    dropDownMaxHeight: dropDownMaxHeight,
+    margin: margin,
+    trailingIcon: trailingIcon,
+    trailingClearIcon: trailingClearIcon,
+    leadingIcon: leadingIcon,
+    onChanged: onChanged,
+    isEnabled: isEnabled,
+    disabledOnTap: disabledOnTap,
+    changeCompletionDelay: changeCompletionDelay,
+    width: width,
+    isDialogExpanded: isDialogExpanded,
+    hasTrailingClearIcon: hasTrailingClearIcon,
+    initialFutureValue: initialValue,
+    dialogOffset: dialogOffset,
+    previousText: previousText,
+    onDismiss: onDismiss,
+  );
 
   const SearchableDropdown.future({
     required Future<List<SearchableDropdownMenuItem<T>>?> Function()?
-        futureRequest,
+    futureRequest,
     Key? key,
     SearchableDropdownController<T>? controller,
     Widget? hintText,
@@ -132,29 +137,30 @@ class SearchableDropdown<T> extends StatefulWidget {
     SearchableDropdownMenuItem<T>? initialValue,
     double? dialogOffset,
     String? previousText,
+    VoidCallback? onDismiss,
   }) : this._(
-            futureRequest: futureRequest,
-            key: key,
-            controller: controller,
-            hintText: hintText,
-            backgroundDecoration: backgroundDecoration,
-            searchHintText: searchHintText,
-            noRecordText: noRecordText,
-            dropDownMaxHeight: dropDownMaxHeight,
-            margin: margin,
-            trailingIcon: trailingIcon,
-            trailingClearIcon: trailingClearIcon,
-            leadingIcon: leadingIcon,
-            onChanged: onChanged,
-            isEnabled: isEnabled,
-            disabledOnTap: disabledOnTap,
-            changeCompletionDelay: changeCompletionDelay,
-            width: width,
-            isDialogExpanded: isDialogExpanded,
-            hasTrailingClearIcon: hasTrailingClearIcon,
-            initialFutureValue: initialValue,
-            dialogOffset: dialogOffset,
-            previousText: previousText);
+      futureRequest: futureRequest,
+      key: key,
+      controller: controller,
+      hintText: hintText,
+      backgroundDecoration: backgroundDecoration,
+      searchHintText: searchHintText,
+      noRecordText: noRecordText,
+      dropDownMaxHeight: dropDownMaxHeight,
+      margin: margin,
+      trailingIcon: trailingIcon,
+      trailingClearIcon: trailingClearIcon,
+      leadingIcon: leadingIcon,
+      onChanged: onChanged,
+      isEnabled: isEnabled,
+      disabledOnTap: disabledOnTap,
+      changeCompletionDelay: changeCompletionDelay,
+      width: width,
+      isDialogExpanded: isDialogExpanded,
+      hasTrailingClearIcon: hasTrailingClearIcon,
+      initialFutureValue: initialValue,
+      dialogOffset: dialogOffset,
+      previousText: previousText,onDismiss: onDismiss,);
 
   const SearchableDropdown._({
     super.key,
@@ -183,6 +189,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     this.hasTrailingClearIcon = true,
     this.dialogOffset,
     this.previousText,
+    this.onDismiss,
   });
 
   //Is dropdown enabled
@@ -213,9 +220,9 @@ class SearchableDropdown<T> extends StatefulWidget {
 
   /// Paginated request service which is returns DropdownMenuItem list.
   final Future<List<SearchableDropdownMenuItem<T>>?> Function(
-    int page,
-    String? searchKey,
-  )? paginatedRequest;
+      int page,
+      String? searchKey,
+      )? paginatedRequest;
 
   /// Paginated request item count which returns in one page, this value is using for knowledge about isDropdown has more item or not.
   final int? requestItemCount;
@@ -257,6 +264,9 @@ class SearchableDropdown<T> extends StatefulWidget {
   /// Background decoration of dropdown, i.e. with this you can wrap dropdown with Card.
   final Widget Function(Widget child)? backgroundDecoration;
   final String? previousText;
+
+  final VoidCallback? onDismiss;
+
 
   @override
   State<SearchableDropdown<T>> createState() => _SearchableDropdownState<T>();
@@ -318,13 +328,14 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
       hasTrailingClearIcon: widget.hasTrailingClearIcon,
       dialogOffset: widget.dialogOffset ?? 35,
       previousText: widget.previousText,
+      onDismiss: widget.onDismiss,
     );
 
     return SizedBox(
       key: dropdownController.key,
       width: widget.width ?? MediaQuery.of(context).size.width,
       child:
-          widget.backgroundDecoration?.call(dropdownWidget) ?? dropdownWidget,
+      widget.backgroundDecoration?.call(dropdownWidget) ?? dropdownWidget,
     );
   }
 }
@@ -350,6 +361,7 @@ class _DropDown<T> extends StatelessWidget {
     this.changeCompletionDelay,
     this.hasTrailingClearIcon = true,
     this.previousText,
+    this.onDismiss,
   });
 
   final bool isEnabled;
@@ -361,9 +373,9 @@ class _DropDown<T> extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final Future<List<SearchableDropdownMenuItem<T>>?> Function()? futureRequest;
   final Future<List<SearchableDropdownMenuItem<T>>?> Function(
-    int page,
-    String? searchKey,
-  )? paginatedRequest;
+      int page,
+      String? searchKey,
+      )? paginatedRequest;
   final SearchableDropdownController<T> controller;
   final String? searchHintText;
   final VoidCallback? disabledOnTap;
@@ -374,6 +386,7 @@ class _DropDown<T> extends StatelessWidget {
   final Widget? hintText;
   final Widget? noRecordText;
   final String? previousText;
+  final VoidCallback? onDismiss;
 
   @override
   Widget build(BuildContext context) {
@@ -439,12 +452,11 @@ class _DropDown<T> extends StatelessWidget {
   }
 
   void showDropdownDialog(
-    BuildContext context,
-    SearchableDropdownController<T> controller, {
-    /// Dialog offset from dropdown.
-    required double dialogOffset,
-  }) {
-    print("--------------------------------------------------######");
+      BuildContext context,
+      SearchableDropdownController<T> controller, {
+        /// Dialog offset from dropdown.
+        required double dialogOffset,
+      }) {
 
     var isReversed = false;
     final deviceHeight = context.deviceHeight;
@@ -503,7 +515,7 @@ class _DropDown<T> extends StatelessWidget {
               SizedBox(
                 height: alertDialogMaxHeight,
                 width:
-                    isDialogExpanded ? null : dropdownGlobalPointBounds?.width,
+                isDialogExpanded ? null : dropdownGlobalPointBounds?.width,
                 child: _DropDownCard(
                   controller: controller,
                   isReversed: isReversed,
@@ -519,7 +531,9 @@ class _DropDown<T> extends StatelessWidget {
         );
       },
       barrierColor: Colors.transparent,
-    );
+    ).then((_){
+onDismiss?.call();
+    });
   }
 }
 
@@ -539,31 +553,31 @@ class _DropDownText<T> extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: controller.selectedItem,
       builder: (context, SearchableDropdownMenuItem<T>? selectedItem, child) =>
-          previousValue != null
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    hintText ?? const SizedBox.shrink(),
-                    SizedBox(height: 4),
-                    Text(
-                      previousValue!,
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ],
-                )
-              : (selectedItem?.label != null
-                      ? Column(
-                          children: [
-                            hintText ?? const SizedBox.shrink(),
-                            SizedBox(height: 4),
-                            Text(
-                              selectedItem!.label,
-                              style: TextStyle(color: Colors.black),
-                            )
-                          ],
-                        )
-                      : hintText) ??
-                  const SizedBox.shrink(),
+      previousValue != null
+          ? Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          hintText ?? const SizedBox.shrink(),
+          SizedBox(height: 4),
+          Text(
+            previousValue!,
+            style: TextStyle(color: Colors.black),
+          ),
+        ],
+      )
+          : (selectedItem?.label != null
+          ? Column(
+        children: [
+          hintText ?? const SizedBox.shrink(),
+          SizedBox(height: 4),
+          Text(
+            selectedItem!.label,
+            style: TextStyle(color: Colors.black),
+          )
+        ],
+      )
+          : hintText) ??
+          const SizedBox.shrink(),
     );
   }
 }
@@ -582,9 +596,9 @@ class _DropDownCard<T> extends StatelessWidget {
   final bool isReversed;
   final Duration? changeCompletionDelay;
   final Future<List<SearchableDropdownMenuItem<T>>?> Function(
-    int page,
-    String? searchKey,
-  )? paginatedRequest;
+      int page,
+      String? searchKey,
+      )? paginatedRequest;
   final SearchableDropdownController<T> controller;
   final String? searchHintText;
   final void Function(T? value)? onChanged;
@@ -594,7 +608,7 @@ class _DropDownCard<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment:
-          isReversed ? MainAxisAlignment.end : MainAxisAlignment.start,
+      isReversed ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Flexible(
           child: Card(
@@ -607,7 +621,7 @@ class _DropDownCard<T> extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 verticalDirection:
-                    isReversed ? VerticalDirection.up : VerticalDirection.down,
+                isReversed ? VerticalDirection.up : VerticalDirection.down,
                 children: [
                   _DropDownSearchBar(
                     controller: controller,
@@ -649,7 +663,7 @@ class _DropDownSearchBar<T> extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: CustomSearchBar(
         changeCompletionDelay:
-            changeCompletionDelay ?? const Duration(milliseconds: 200),
+        changeCompletionDelay ?? const Duration(milliseconds: 200),
         hintText: searchHintText ?? 'Search',
         isOutlined: true,
         leadingIcon: const Icon(Icons.search, size: 24),
@@ -681,9 +695,9 @@ class _DropDownListView<T> extends StatefulWidget {
 
   final bool isReversed;
   final Future<List<SearchableDropdownMenuItem<T>>?> Function(
-    int page,
-    String? searchKey,
-  )? paginatedRequest;
+      int page,
+      String? searchKey,
+      )? paginatedRequest;
   final SearchableDropdownController<T> dropdownController;
   final void Function(T? value)? onChanged;
   final Widget? noRecordText;
@@ -717,97 +731,97 @@ class _DropDownListViewState<T> extends State<_DropDownListView<T>> {
           ? widget.dropdownController.paginatedItemList
           : widget.dropdownController.searchedItems,
       builder: (
-        context,
-        List<SearchableDropdownMenuItem<T>>? itemList,
-        child,
-      ) =>
-          itemList == null
-              ? const Center(child: CircularProgressIndicator.adaptive())
-              : itemList.isEmpty
-                  ? Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: widget.noRecordText ?? const Text('No record'),
-                    )
-                  : Scrollbar(
-                      thumbVisibility: true,
-                      controller: scrollController,
-                      child: NotificationListener<ScrollNotification>(
-                        onNotification: (ScrollNotification notification) {
-                          if (notification is ScrollUpdateNotification) {
-                            double currentPosition = notification.metrics.pixels;
-                            double maxScroll = notification.metrics.maxScrollExtent;
-                            double minScroll = notification.metrics.minScrollExtent;
+          context,
+          List<SearchableDropdownMenuItem<T>>? itemList,
+          child,
+          ) =>
+      itemList == null
+          ? const Center(child: CircularProgressIndicator.adaptive())
+          : itemList.isEmpty
+          ? Padding(
+        padding: const EdgeInsets.all(8),
+        child: widget.noRecordText ?? const Text('No record'),
+      )
+          : Scrollbar(
+        thumbVisibility: true,
+        controller: scrollController,
+        child: NotificationListener<ScrollNotification>(
+          onNotification: (ScrollNotification notification) {
+            if (notification is ScrollUpdateNotification) {
+              double currentPosition = notification.metrics.pixels;
+              double maxScroll = notification.metrics.maxScrollExtent;
+              double minScroll = notification.metrics.minScrollExtent;
 
-                            final dropdownController = widget.dropdownController;
-                            final searchText = dropdownController.searchText;
-
-
-                            if (notification.metrics.atEdge) {
-                              if (currentPosition == maxScroll) {
-                                  if (searchText.isNotEmpty) {
-                                    dropdownController.getItemsWithPaginatedRequest(
-                                      page: dropdownController.page,
-                                      key: searchText,
-                                    );
-                                  } else {
-                                    dropdownController.getItemsWithPaginatedRequest(
-                                      page: dropdownController.page,
-                                    );
-                                  }
-                              } else if (currentPosition == minScroll) {
-                              }
-                            }
+              final dropdownController = widget.dropdownController;
+              final searchText = dropdownController.searchText;
 
 
-                          }
-                          return false; // Return false to allow the notification to continue to be dispatched.
-                        },
-                        child: ListView.builder(
-                          controller: scrollController,
-                          padding:
-                              listViewPadding(isReversed: widget.isReversed),
-                          itemCount: itemList.length +1,
-                          shrinkWrap: true,
-                          reverse: widget.isReversed,
-                          itemBuilder: (context, index) {
+              if (notification.metrics.atEdge) {
+                if (currentPosition == maxScroll) {
+                  if (searchText.isNotEmpty) {
+                    dropdownController.getItemsWithPaginatedRequest(
+                      page: dropdownController.page,
+                      key: searchText,
+                    );
+                  } else {
+                    dropdownController.getItemsWithPaginatedRequest(
+                      page: dropdownController.page,
+                    );
+                  }
+                } else if (currentPosition == minScroll) {
+                }
+              }
 
-                            if (index < itemList.length) {
 
-                              final item = itemList.elementAt(index);
-                              return CustomInkwell(
-                                child: item.child,
-                                onTap: () {
-                                  widget.dropdownController.selectedItem.value =
-                                      item;
-                                  widget.onChanged?.call(item.value);
-                                  Navigator.pop(context);
-                                  item.onTap?.call();
-                                },
-                              );
-                            } else {
+            }
+            return false; // Return false to allow the notification to continue to be dispatched.
+          },
+          child: ListView.builder(
+            controller: scrollController,
+            padding:
+            listViewPadding(isReversed: widget.isReversed),
+            itemCount: itemList.length +1,
+            shrinkWrap: true,
+            reverse: widget.isReversed,
+            itemBuilder: (context, index) {
 
-                              return ValueListenableBuilder(
-                                valueListenable:
-                                    widget.dropdownController.status,
-                                builder: (
-                                  context,
-                                  SearchableDropdownStatus state,
-                                  child,
-                                ) {
-                                  if (state == SearchableDropdownStatus.busy) {
-                                    return const Center(
-                                      child:
-                                          CircularProgressIndicator.adaptive(),
-                                    );
-                                  }
-                                  return const SizedBox.shrink();
-                                },
-                              );
-                            }
-                          },
-                        ),
-                      ),
-                    ),
+              if (index < itemList.length) {
+
+                final item = itemList.elementAt(index);
+                return CustomInkwell(
+                  child: item.child,
+                  onTap: () {
+                    widget.dropdownController.selectedItem.value =
+                        item;
+                    widget.onChanged?.call(item.value);
+                    Navigator.pop(context);
+                    item.onTap?.call();
+                  },
+                );
+              } else {
+
+                return ValueListenableBuilder(
+                  valueListenable:
+                  widget.dropdownController.status,
+                  builder: (
+                      context,
+                      SearchableDropdownStatus state,
+                      child,
+                      ) {
+                    if (state == SearchableDropdownStatus.busy) {
+                      return const Center(
+                        child:
+                        CircularProgressIndicator.adaptive(),
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  },
+                );
+              }
+            },
+          ),
+        ),
+      ),
     );
   }
 
@@ -836,7 +850,7 @@ class _DropDownListViewState<T> extends State<_DropDownListView<T>> {
     final currentScroll = position.pixels;
     final dropdownController = widget.dropdownController;
     final searchText = dropdownController.searchText;
-  
+
     if (maxScroll - currentScroll <= sensitivity) {
       if (searchText.isNotEmpty) {
         dropdownController.getItemsWithPaginatedRequest(
