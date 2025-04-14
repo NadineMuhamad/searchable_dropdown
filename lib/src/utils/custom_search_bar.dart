@@ -36,7 +36,7 @@ class CustomSearchBar extends StatelessWidget {
     return CustomInkwell(
       padding: EdgeInsets.zero,
       disableTabEffect: true,
-      onTap: myFocusNode.requestFocus,
+      onTap: (){},
       child: isOutlined
           ? DecoratedBox(
               decoration: BoxDecoration(
@@ -109,7 +109,7 @@ class _SearchBarTextField extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: TextField(
         controller: controller,
-        focusNode: focusNode,
+        // focusNode: focusNode,
         onChanged: (value) async {
           await cancelableOperation?.cancel();
           startCancelableOperation();
