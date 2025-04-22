@@ -826,7 +826,7 @@ class _DropDownListViewState<T> extends State<_DropDownListView<T>> {
                       child,
                       ) {
                     if (state == SearchableDropdownStatus.busy) {
-                      return const Center(
+                      return  Center(
                         child:widget.progressIndicator ?? CircularProgressIndicator()
                        ,
                       );
