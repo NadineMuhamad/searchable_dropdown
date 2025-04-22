@@ -753,7 +753,7 @@ class _DropDownListViewState<T> extends State<_DropDownListView<T>> {
           child,
           ) =>
       itemList == null
-          ? const Center(child: widget.progressIndicator  ?? CircularProgressIndicator())
+          ?  Center(child: widget.progressIndicator  ?? CircularProgressIndicator())
           : itemList.isEmpty
           ? Padding(
         padding: const EdgeInsets.all(8),
