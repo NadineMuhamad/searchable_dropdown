@@ -86,6 +86,7 @@ class SearchableDropdownFormField<T> extends FormField<T> {
     double? dialogOffset,
     String? previousText,
     VoidCallback? onDismiss,
+    Widget? progressIndicator,
   }) : this._(
           controller: controller,
           paginatedRequest: paginatedRequest,
@@ -115,6 +116,7 @@ class SearchableDropdownFormField<T> extends FormField<T> {
           dialogOffset: dialogOffset,
     previousText: previousText,
     onDismiss: onDismiss,
+    progressIndicator: progressIndicator
         );
 
   SearchableDropdownFormField.future({
@@ -202,6 +204,7 @@ class SearchableDropdownFormField<T> extends FormField<T> {
     this.dialogOffset,
     this.previousText,
     this.onDismiss,
+    this.progressIndicator
 
   })  : assert(initialValue == null || controller == null,
             'You can use controllers initial item value',),
@@ -263,6 +266,7 @@ class SearchableDropdownFormField<T> extends FormField<T> {
                       dialogOffset: dialogOffset,
                       previousText: previousText,
 onDismiss: onDismiss,
+                      progressIndicator: progressIndicator
                     ),
                   if (futureRequest != null)
                     SearchableDropdown<T>.future(
@@ -349,6 +353,8 @@ onDismiss: onDismiss,
   /// SearchBar hint text.
   final String? searchHintText;
   final String? previousText;
+
+  final Widget? progressIndicator;
 
 
   //Triggers this function if dropdown pressed while disabled
