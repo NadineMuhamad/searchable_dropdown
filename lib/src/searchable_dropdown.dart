@@ -85,7 +85,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     double? dialogOffset,
     String? previousText,
     VoidCallback? onDismiss,
-
+  Widget? progressIndicator,
   }) : this._(
     key: key,
     controller: controller,
@@ -111,6 +111,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     dialogOffset: dialogOffset,
     previousText: previousText,
     onDismiss: onDismiss,
+    progressIndicator: progressIndicator
   );
 
   const SearchableDropdown.future({
@@ -138,6 +139,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     double? dialogOffset,
     String? previousText,
     VoidCallback? onDismiss,
+    Widget? progressIndicator,
   }) : this._(
       futureRequest: futureRequest,
       key: key,
@@ -160,6 +162,7 @@ class SearchableDropdown<T> extends StatefulWidget {
       hasTrailingClearIcon: hasTrailingClearIcon,
       initialFutureValue: initialValue,
       dialogOffset: dialogOffset,
+      progressIndicator: progressIndicator,
       previousText: previousText,onDismiss: onDismiss,);
 
   const SearchableDropdown._({
@@ -190,6 +193,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     this.dialogOffset,
     this.previousText,
     this.onDismiss,
+    this.progressIndicator
   });
 
   //Is dropdown enabled
@@ -267,6 +271,8 @@ class SearchableDropdown<T> extends StatefulWidget {
 
   final VoidCallback? onDismiss;
 
+  final Widget? progressIndicator;
+
 
   @override
   State<SearchableDropdown<T>> createState() => _SearchableDropdownState<T>();
@@ -329,6 +335,7 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
       dialogOffset: widget.dialogOffset ?? 35,
       previousText: widget.previousText,
       onDismiss: widget.onDismiss,
+      progressIndicator: widget.progressIndicator,
     );
 
     return SizedBox(
@@ -362,7 +369,9 @@ class _DropDown<T> extends StatelessWidget {
     this.hasTrailingClearIcon = true,
     this.previousText,
     this.onDismiss,
+    this.progressIndicator,
   });
+
 
   final bool isEnabled;
   final bool isDialogExpanded;
@@ -387,6 +396,7 @@ class _DropDown<T> extends StatelessWidget {
   final Widget? noRecordText;
   final String? previousText;
   final VoidCallback? onDismiss;
+  final Widget? progressIndicator;
 
   @override
   Widget build(BuildContext context) {
@@ -394,9 +404,7 @@ class _DropDown<T> extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       onTap: () {
         if (isEnabled) {
-          onDismiss?.call();
-          
-          showDropdownDialog(context, controller, dialogOffset: dialogOffset);
+          showDropdownDialog(context, controller, dialogOffset: dialogOffset, progressIndicator: progressIndicator);
         } else {
           disabledOnTap?.call();
         }
@@ -458,6 +466,7 @@ class _DropDown<T> extends StatelessWidget {
       SearchableDropdownController<T> controller, {
         /// Dialog offset from dropdown.
         required double dialogOffset,
+        Widget? progressIndicator,
       }) {
 
     var isReversed = false;
@@ -526,6 +535,7 @@ class _DropDown<T> extends StatelessWidget {
                   paginatedRequest: paginatedRequest,
                   searchHintText: searchHintText,
                   changeCompletionDelay: changeCompletionDelay,
+                  progressIndicator: progressIndicator,
                 ),
               ),
             ],
@@ -593,6 +603,7 @@ class _DropDownCard<T> extends StatelessWidget {
     this.onChanged,
     this.noRecordText,
     this.changeCompletionDelay,
+    this.progressIndicator,
   });
 
   final bool isReversed;
@@ -605,6 +616,7 @@ class _DropDownCard<T> extends StatelessWidget {
   final String? searchHintText;
   final void Function(T? value)? onChanged;
   final Widget? noRecordText;
+  final Widget? progressIndicator;
 
   @override
   Widget build(BuildContext context) {
@@ -637,6 +649,7 @@ class _DropDownCard<T> extends StatelessWidget {
                       isReversed: isReversed,
                       noRecordText: noRecordText,
                       onChanged: onChanged,
+                      progressIndicator: progressIndicator,
                     ),
                   ),
                 ],
@@ -693,6 +706,7 @@ class _DropDownListView<T> extends StatefulWidget {
     this.paginatedRequest,
     this.noRecordText,
     this.onChanged,
+    this.progressIndicator,
   });
 
   final bool isReversed;
@@ -703,6 +717,7 @@ class _DropDownListView<T> extends StatefulWidget {
   final SearchableDropdownController<T> dropdownController;
   final void Function(T? value)? onChanged;
   final Widget? noRecordText;
+  final Widget? progressIndicator;
 
   @override
   State<_DropDownListView<T>> createState() => _DropDownListViewState<T>();
@@ -738,7 +753,7 @@ class _DropDownListViewState<T> extends State<_DropDownListView<T>> {
           child,
           ) =>
       itemList == null
-          ? const Center(child: CircularProgressIndicator.adaptive())
+          ? const Center(child: widget.progressIndicator  ?? CircularProgressIndicator())
           : itemList.isEmpty
           ? Padding(
         padding: const EdgeInsets.all(8),
@@ -812,8 +827,8 @@ class _DropDownListViewState<T> extends State<_DropDownListView<T>> {
                       ) {
                     if (state == SearchableDropdownStatus.busy) {
                       return const Center(
-                        child:
-                        CircularProgressIndicator.adaptive(),
+                        child:widget.progressIndicator ?? CircularProgressIndicator()
+                       ,
                       );
                     }
                     return const SizedBox.shrink();
